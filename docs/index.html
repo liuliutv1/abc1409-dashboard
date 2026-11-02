@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0c11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>农银匠心灵动14天 第9期 G</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0a0c11;--card:#13171f;--line:#1e2430;--txt:#e8eaf0;--dim:#7b8496;--dimmer:#4e5666;--blue:#5b8def;--up:#f6465d;--down:#0ecb81}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+background:var(--bg);color:var(--txt);font-size:15px;line-height:1.5;
+padding:calc(env(safe-area-inset-top) + 16px) 14px calc(env(safe-area-inset-bottom) + 32px);
+max-width:560px;margin:0 auto;-webkit-font-smoothing:antialiased}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:18px}
+.hd h1{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.hd .sub{font-size:11px;color:var(--dimmer);margin-top:4px;font-variant-numeric:tabular-nums}
+.badge{font-size:11px;padding:4px 10px;border-radius:999px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.badge.ok{background:rgba(34,197,94,.13);color:#4ade80}
+.badge.wait{background:rgba(234,179,8,.13);color:#facc15}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;margin-bottom:12px}
+.hero .lbl{font-size:11px;color:var(--dim);letter-spacing:.05em;margin-bottom:10px}
+.hero .big{font-size:44px;font-weight:680;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.05}
+.hero .date{font-size:12px;color:var(--dimmer);margin-top:8px;font-variant-numeric:tabular-nums}
+.hero .wan{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
+.hero .wan .num{font-size:26px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.hero .wan .u{font-size:13px;color:var(--dim)}
+.hero .wan .tag{font-size:11px;color:var(--dim);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.g{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 12px}
+.g .k{font-size:10px;color:var(--dimmer);letter-spacing:.04em;margin-bottom:7px}
+.g .v{font-size:17px;font-weight:640;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 14px;margin-bottom:12px}
+section h2{font-size:12px;font-weight:600;color:#9aa3b5;letter-spacing:.04em;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+section h2 span{font-size:10px;font-weight:400;color:var(--dimmer);letter-spacing:0}
+svg{display:block;width:100%;height:auto}
+.row{display:flex;align-items:center;padding:11px 2px;border-bottom:1px solid #161b23;font-variant-numeric:tabular-nums;font-size:13.5px}
+.row:last-child{border-bottom:none}
+.row .d{color:var(--dim);width:62px;flex-shrink:0;font-size:12.5px}
+.row .n{color:#c3cadd;flex:1;font-size:12.5px}
+.row .w{width:86px;text-align:right;font-weight:600}
+.up{color:var(--up)}.down{color:var(--down)}.flat{color:#6b7486}
+.scroll{max-height:46vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scroll::-webkit-scrollbar{width:0}
+footer{text-align:center;font-size:10.5px;color:#3a4150;margin-top:22px;line-height:1.9}
+.tip{font-size:11px;color:var(--dimmer);margin-top:10px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="hd">
+  <div><h1>农银匠心灵动14天 第9期 G</h1><div class="sub">NYJXLD1409G</div></div>
+  <div id="badge"></div>
+</div>
+<div class="hero">
+  <div class="lbl">最新单位净值</div>
+  <div class="big" id="nav">—</div>
+  <div class="date" id="ndate">—</div>
+  <div class="wan"><span class="num" id="wan">—</span><span class="u">元 / 万份</span><span class="tag" id="wtxt"></span></div>
+</div>
+<div class="grid">
+  <div class="g"><div class="k">近 7 天</div><div class="v" id="g7">—</div></div>
+  <div class="g"><div class="k">近 30 天</div><div class="v" id="g30">—</div></div>
+  <div class="g"><div class="k">近 84 天</div><div class="v" id="gall">—</div></div>
+</div>
+<section><h2>单位净值走势<span id="navrng"></span></h2><svg id="c1" viewBox="0 0 340 168"></svg></section>
+<section><h2>每日万份收益<span>红涨 绿跌</span></h2><svg id="c2" viewBox="0 0 340 140"></svg><div class="tip" id="insight"></div></section>
+<section><h2>净值明细<span id="cnt"></span></h2><div class="scroll"><div id="rows"></div></div></section>
+<footer>数据来源 农银理财官网 · 渲染于 2026-11-02 23:47（北京时间）<br>每万份收益 = 相邻净值差 × 10000</footer>
+<script>
+const DATA = {"code": "NYJXLD1409G", "name": "农银匠心灵动14天 第9期 G", "latest_date": "20261102", "latest_nav": 1.016751, "latest_wan": 1.25, "fresh": true, "built_at": "2026-11-02 23:47", "daily": [{"d": "20260701", "nav": 1.006543, "wan": null}, {"d": "20260702", "nav": 1.00657, "wan": 0.27}, {"d": "20260703", "nav": 1.006574, "wan": 0.04}, {"d": "20260706", "nav": 1.00668, "wan": 1.06}, {"d": "20260707", "nav": 1.006724, "wan": 0.44}, {"d": "20260708", "nav": 1.006751, "wan": 0.27}, {"d": "20260709", "nav": 1.006779, "wan": 0.28}, {"d": "20260710", "nav": 1.007013, "wan": 2.34}, {"d": "20260713", "nav": 1.007076, "wan": 0.63}, {"d": "20260714", "nav": 1.007105, "wan": 0.29}, {"d": "20260715", "nav": 1.007424, "wan": 3.19}, {"d": "20260716", "nav": 1.007665, "wan": 2.41}, {"d": "20260717", "nav": 1.007694, "wan": 0.29}, {"d": "20260720", "nav": 1.007891, "wan": 1.97}, {"d": "20260721", "nav": 1.007922, "wan": 0.31}, {"d": "20260722", "nav": 1.010101, "wan": 21.79}, {"d": "20260723", "nav": 1.010151, "wan": 0.5}, {"d": "20260724", "nav": 1.010203, "wan": 0.52}, {"d": "20260727", "nav": 1.010239, "wan": 0.36}, {"d": "20260728", "nav": 1.010338, "wan": 0.99}, {"d": "20260729", "nav": 1.01064, "wan": 3.02}, {"d": "20260730", "nav": 1.010724, "wan": 0.84}, {"d": "20260731", "nav": 1.010789, "wan": 0.65}, {"d": "20260803", "nav": 1.01089, "wan": 1.01}, {"d": "20260804", "nav": 1.010936, "wan": 0.46}, {"d": "20260805", "nav": 1.011032, "wan": 0.96}, {"d": "20260806", "nav": 1.011552, "wan": 5.2}, {"d": "20260807", "nav": 1.011653, "wan": 1.01}, {"d": "20260810", "nav": 1.011887, "wan": 2.34}, {"d": "20260811", "nav": 1.011785, "wan": -1.02}, {"d": "20260812", "nav": 1.011829, "wan": 0.44}, {"d": "20260813", "nav": 1.01207, "wan": 2.41}, {"d": "20260814", "nav": 1.012098, "wan": 0.28}, {"d": "20260817", "nav": 1.012384, "wan": 2.86}, {"d": "20260818", "nav": 1.0129, "wan": 5.16}, {"d": "20260819", "nav": 1.012778, "wan": -1.22}, {"d": "20260820", "nav": 1.012788, "wan": 0.1}, {"d": "20260821", "nav": 1.012783, "wan": -0.05}, {"d": "20260824", "nav": 1.012926, "wan": 1.43}, {"d": "20260825", "nav": 1.01293, "wan": 0.04}, {"d": "20260826", "nav": 1.012895, "wan": -0.35}, {"d": "20260827", "nav": 1.012824, "wan": -0.71}, {"d": "20260828", "nav": 1.013356, "wan": 5.32}, {"d": "20260831", "nav": 1.01349, "wan": 1.34}, {"d": "20260901", "nav": 1.013645, "wan": 1.55}, {"d": "20260902", "nav": 1.013617, "wan": -0.28}, {"d": "20260903", "nav": 1.013765, "wan": 1.48}, {"d": "20260904", "nav": 1.013827, "wan": 0.62}, {"d": "20260907", "nav": 1.013966, "wan": 1.39}, {"d": "20260908", "nav": 1.013978, "wan": 0.12}, {"d": "20260909", "nav": 1.014018, "wan": 0.4}, {"d": "20260910", "nav": 1.014052, "wan": 0.34}, {"d": "20260911", "nav": 1.013986, "wan": -0.66}, {"d": "20260914", "nav": 1.014057, "wan": 0.71}, {"d": "20260915", "nav": 1.014159, "wan": 1.02}, {"d": "20260916", "nav": 1.014288, "wan": 1.29}, {"d": "20260917", "nav": 1.014885, "wan": 5.97}, {"d": "20260918", "nav": 1.015036, "wan": 1.51}, {"d": "20260920", "nav": 1.015094, "wan": 0.58}, {"d": "20260921", "nav": 1.015285, "wan": 1.91}, {"d": "20260922", "nav": 1.015454, "wan": 1.69}, {"d": "20260923", "nav": 1.015517, "wan": 0.63}, {"d": "20260924", "nav": 1.015752, "wan": 2.35}, {"d": "20260928", "nav": 1.015804, "wan": 0.52}, {"d": "20260929", "nav": 1.016153, "wan": 3.49}, {"d": "20260930", "nav": 1.01594, "wan": -2.13}, {"d": "20261008", "nav": 1.016039, "wan": 0.99}, {"d": "20261009", "nav": 1.016212, "wan": 1.73}, {"d": "20261010", "nav": 1.016261, "wan": 0.49}, {"d": "20261012", "nav": 1.016609, "wan": 3.48}, {"d": "20261013", "nav": 1.016724, "wan": 1.15}, {"d": "20261014", "nav": 1.017011, "wan": 2.87}, {"d": "20261015", "nav": 1.017064, "wan": 0.53}, {"d": "20261016", "nav": 1.017335, "wan": 2.71}, {"d": "20261019", "nav": 1.017504, "wan": 1.69}, {"d": "20261020", "nav": 1.0179, "wan": 3.96}, {"d": "20261021", "nav": 1.018004, "wan": 1.04}, {"d": "20261022", "nav": 1.018021, "wan": 0.17}, {"d": "20261023", "nav": 1.018096, "wan": 0.75}, {"d": "20261027", "nav": 1.018501, "wan": 4.05}, {"d": "20261028", "nav": 1.018546, "wan": 0.45}, {"d": "20261029", "nav": 1.01859, "wan": 0.44}, {"d": "20261030", "nav": 1.016626, "wan": -19.64}, {"d": "20261102", "nav": 1.016751, "wan": 1.25}], "w7": -12.53, "w30": 26.94, "wall": 102.08, "min_wan": -19.64, "max_wan": 21.79, "down_days": 9};
+function fmt(d){return d.slice(4,6)+'-'+d.slice(6,8);}
+function full(d){return d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8);}
+function sign(v){return (v>0?'+':'')+v.toFixed(2);}
+function cls(v){return v>0?'up':(v<0?'down':'flat');}
+(function(){
+  const D=DATA;
+  document.getElementById('badge').innerHTML = D.fresh
+    ? '<span class="badge ok">已更新</span>'
+    : '<span class="badge wait">待更新</span>';
+  document.getElementById('nav').textContent = D.latest_nav.toFixed(6);
+  document.getElementById('ndate').textContent = full(D.latest_date) + (D.fresh?'':' · 今日未披露');
+  const w=D.latest_wan, we=document.getElementById('wan');
+  we.textContent = w===null?'—':sign(w);
+  we.className='num '+(w===null?'flat':cls(w));
+  document.getElementById('wtxt').textContent = w===null?'':(w>0?'↑ 上涨':(w<0?'↓ 下跌':'持平'));
+  [['g7',D.w7],['g30',D.w30],['gall',D.wall]].forEach(([id,v])=>{
+    const e=document.getElementById(id); e.textContent=sign(v); e.className='v '+cls(v);
+  });
+  document.getElementById('cnt').textContent = D.daily.length+' 个净值日';
+  document.getElementById('insight').textContent =
+    '区间最大单日 +'+D.max_wan.toFixed(2)+' 元，最大单日 '+D.min_wan.toFixed(2)+
+    ' 元；'+D.daily.length+' 天中 '+D.down_days+' 天下跌。';
+
+  // 净值折线
+  (function(){
+    const d=D.daily,W=340,H=168,PL=4,PR=4,PT=14,PB=18;
+    const vals=d.map(x=>x.nav); let lo=Math.min(...vals),hi=Math.max(...vals);
+    const pad=(hi-lo)*0.18||0.0008; lo-=pad; hi+=pad;
+    const X=i=>PL+i*(W-PL-PR)/Math.max(d.length-1,1);
+    const Y=v=>PT+(hi-v)*(H-PT-PB)/(hi-lo);
+    let line='';
+    d.forEach((p,i)=>{line+=(i?'L':'M')+X(i).toFixed(1)+','+Y(p.nav).toFixed(1);});
+    const area=line+'L'+X(d.length-1).toFixed(1)+','+(H-PB)+'L'+X(0).toFixed(1)+','+(H-PB)+'Z';
+    let grid='';
+    for(let g=0;g<=2;g++){const y=PT+g*(H-PT-PB)/2;
+      grid+='<line x1="0" y1="'+y.toFixed(1)+'" x2="'+W+'" y2="'+y.toFixed(1)+'" stroke="#1b2029" stroke-width="1"/>';}
+    const li=d.length-1;
+    document.getElementById('c1').innerHTML=
+      '<defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#5b8def" stop-opacity="0.3"/>'+
+      '<stop offset="100%" stop-color="#5b8def" stop-opacity="0"/></linearGradient></defs>'+
+      grid+'<path d="'+area+'" fill="url(#ga)"/>'+
+      '<path d="'+line+'" fill="none" stroke="#5b8def" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'+
+      '<circle cx="'+X(li).toFixed(1)+'" cy="'+Y(d[li].nav).toFixed(1)+'" r="3.5" fill="#5b8def" stroke="#13171f" stroke-width="2"/>';
+    document.getElementById('navrng').textContent=lo.toFixed(4)+' ~ '+hi.toFixed(4);
+  })();
+
+  // 万收柱状
+  (function(){
+    const s=D.daily.filter(x=>x.wan!==null);
+    if(!s.length)return;
+    const W=340,H=140,PT=10,PB=8,PL=2,PR=2;
+    const mx=Math.max(...s.map(x=>Math.abs(x.wan)),1);
+    const zero=PT+(H-PT-PB)/2, sc=(H-PT-PB)/2/mx;
+    const bw=Math.max(1.6,(W-PL-PR)/s.length-1.1);
+    let bars='';
+    s.forEach((p,i)=>{
+      const x=PL+i*(W-PL-PR)/s.length+0.55;
+      const h=Math.abs(p.wan)*sc, y=p.wan>=0?zero-h:zero;
+      const c=p.wan>0?'#f6465d':(p.wan<0?'#0ecb81':'#2a3140');
+      bars+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+
+            '" height="'+Math.max(h,0.9).toFixed(1)+'" fill="'+c+'" rx="0.8"/>';
+    });
+    document.getElementById('c2').innerHTML=
+      '<line x1="0" y1="'+zero.toFixed(1)+'" x2="'+W+'" y2="'+zero.toFixed(1)+'" stroke="#242b38" stroke-width="1"/>'+bars;
+  })();
+
+  // 明细
+  (function(){
+    const d=D.daily; let h='';
+    for(let i=d.length-1;i>=0;i--){
+      const p=d[i];
+      const w=p.wan===null?'—':sign(p.wan);
+      const c=p.wan===null?'flat':cls(p.wan);
+      h+='<div class="row"><span class="d">'+fmt(p.d)+'</span><span class="n">'+
+         p.nav.toFixed(6)+'</span><span class="w '+c+'">'+w+'</span></div>';
+    }
+    document.getElementById('rows').innerHTML=h;
+  })();
+})();
+</script>
+</body>
+</html>

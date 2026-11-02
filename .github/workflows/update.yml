@@ -1,0 +1,41 @@
+name: Update NAV Dashboard
+
+on:
+  schedule:
+    # UTC 时间；北京时间 = UTC+8
+    # 01:00 -> 09:00 早间补抓
+    # 12:00-15:00 -> 20:00-23:00 晚间披露时段每小时一次
+    - cron: '0 1,12,13,14,15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nav-update
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch NAV and build page
+        run: python fetch_and_build.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html
+          if git diff --staged --quiet; then
+            echo "no data change, skip commit"
+          else
+            git commit -m "chore: update nav $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M')"
+            git push
+          fi
